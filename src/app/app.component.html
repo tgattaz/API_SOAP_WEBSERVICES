@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="jumbotron">
+        <h2>WebService Search</h2>
+        <h3>Using HAL or arXiv</h3>
+        <br>
+        <span> Your search : </span><input #search_filter
+        (keyup.enter)="SearchHAL(search_filter.value)"><hr> 
+        <button (click)="SearchHAL(search_filter.value)" class="btn btn-primary">Search on HAL</button> or
+        <button (click)="SearchARXIV(search_filter.value)" class="btn btn-danger">Search on arXiv</button>
+    </div>
+    <div class="panel" *ngIf="HAL$ | async as datas else noData">
+        <div class="panel" *ngFor="let data of datas">
+            <div class="panel panel-primary" *ngFor="let doc of data.docs">
+                <div class="panel-heading">Document ID : {{doc.docid}}</div> 
+                <div class="panel-body">
+                    <h4>URI :  <a href="{{doc.uri_s}}" class="btn btn-secondary">Go to source</a> </h4>
+                    <h4>{{doc.label_s}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel" *ngIf="ARXIV$ | async as datas else noData">
+        <div class="panel" *ngFor="let data of datas">
+            <div class="panel panel-danger" *ngFor="let entry of data.entry">
+                <div class="panel-heading">Title : {{entry.title[0]}} -- Publication date : {{entry.published[0] | date}} </div> 
+                <div class="panel-body">
+                    <h4> Authors : <span *ngFor="let author of entry.author">{{author.name}}; </span></h4>
+                    <h4>URI :  <a href="{{entry.link[0].$.href}}" class="btn btn-secondary">Go to source</a> </h4>
+                    <h4>{{entry.summary[0]}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
