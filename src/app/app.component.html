@@ -4,7 +4,7 @@
         <h3>Using HAL or arXiv</h3>
         <br>
         <span> Your search : </span><input #search_filter
-        (keyup.enter)="SearchHAL(search_filter.value)">
+        (keyup.enter)="SearchARXIV(search_filter.value); SearchHAL(search_filter.value)">
         &nbsp;&nbsp;&nbsp;<button (click)="SearchARXIV(search_filter.value); SearchHAL(search_filter.value)" class="btn btn-info">Search</button>
         <hr> 
         <div class="row text-left">
@@ -24,10 +24,10 @@
             </ng-container>
             <ng-container *ngIf="checkHAL">  
                 <div class="panel panel-primary" *ngFor="let doc of data.docs">
-                    <div class="panel-heading">Document ID : {{doc.docid}}</div> 
+                    <div class="panel-heading">Title : {{doc.title_s[0]}} -- Publication date : {{doc.submittedDate_tdate | date}} </div> 
                     <div class="panel-body">
+                        <h4> Authors : <span *ngFor="let author of doc.authFullName_s">{{author}}; </span></h4>
                         <h4>URI :  <a href="{{doc.uri_s}}" class="btn btn-secondary">Go to source</a> </h4>
-                        <h4>{{doc.label_s}}</h4>
                     </div>
                 </div>
             </ng-container>            

@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
             .set("X-CustomHeader", "custom header value");
 
         const httpGet$ = this.http
-            .get("http://api.archives-ouvertes.fr/search/?q="+filter+"&wt=json", {headers})
+            .get("http://api.archives-ouvertes.fr/search/?q="+filter+"&wt=json&fl=*", {headers})
             .map(data => _.values(data))
             .shareReplay();
 
