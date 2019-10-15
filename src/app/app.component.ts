@@ -14,8 +14,14 @@ export class AppComponent implements OnInit {
 
     ARXIV$:  Observable<any>;
 
-    constructor(private http: HttpClient) {
+    checkHAL: Boolean;
 
+    checkARXIV: Boolean;
+    
+
+    constructor(private http: HttpClient) {
+        this.checkHAL=true;
+        this.checkARXIV=true;
     }
 
     ngOnInit() {
@@ -38,7 +44,7 @@ export class AppComponent implements OnInit {
         );
 
         this.HAL$ = httpGet$;
-        this.ARXIV$ = null;
+        //this.ARXIV$ = null;
 
     }
 
@@ -76,7 +82,7 @@ export class AppComponent implements OnInit {
         );
 
         this.ARXIV$ = httpGet$;
-        this.HAL$ = null;
+        //this.HAL$ = null;
 
         
 
