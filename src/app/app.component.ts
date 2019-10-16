@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {HttpClient, HttpEventType, HttpHeaders, HttpParams, HttpRequest} from "@angular/common/http";
 import * as _ from 'lodash';
+import { async } from '@angular/core/testing';
 
 @Component({
     selector: 'app-root',
@@ -9,6 +10,8 @@ import * as _ from 'lodash';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+    Hello: string;
 
     HAL$:  Observable<any>;
 
@@ -25,6 +28,18 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
+        const headers = new HttpHeaders();
+
+        const httpGet$ = this.http
+            .get("http://localhost:3000/", {headers})
+            .map(data => _.values(data))
+            .shareReplay();
+
+        httpGet$.subscribe(
+            v => this.Hello = v
+        );
+
+        console.log(this.Hello);
     }
 
 
